@@ -1928,21 +1928,22 @@
 
 1412631243 d:\wxwidgets-3.0.2\include\wx\os2\msgdlg.h
 
-1416279322 source:d:\desktop\coding\tuzimine\cminelogic.cpp
+1416410165 source:d:\desktop\coding\tuzimine\cminelogic.cpp
 	"CMineLogic.h"
 	<cstdlib>
 	<ctime>
 	<iostream>
 
-1416279300 d:\desktop\coding\tuzimine\cminelogic.h
+1416397678 d:\desktop\coding\tuzimine\cminelogic.h
 
-1416363630 source:d:\desktop\coding\tuzimine\clayer.cpp
+1416396581 source:d:\desktop\coding\tuzimine\clayer.cpp
 	"CLayer.h"
+	<cmath>
 	<iostream>
 
-1416363595 d:\desktop\coding\tuzimine\clayer.h
+1416395773 d:\desktop\coding\tuzimine\clayer.h
 
-1416366446 source:d:\desktop\coding\tuzimine\cimagelayer.cpp
+1416402549 source:d:\desktop\coding\tuzimine\cimagelayer.cpp
 	"CImageLayer.h"
 	<cstdlib>
 	<iostream>
@@ -1958,11 +1959,16 @@
 1416291936 d:\desktop\coding\tuzimine\canimatelayer.h
 	"CLayer.h"
 
-1416291996 source:d:\desktop\coding\tuzimine\cminelayer.cpp
+1416410585 source:d:\desktop\coding\tuzimine\cminelayer.cpp
 	"CMineLayer.h"
+	<cmath>
+	<iostream>
 
-1416368835 d:\desktop\coding\tuzimine\cminelayer.h
-	"CLayer.h"
+1416409289 d:\desktop\coding\tuzimine\cminelayer.h
+	<wx/wx.h>
+	<wx/glcanvas.h>
+	"CImageLayer.h"
+	"CMineLogic.h"
 
 1416312827 source:d:\desktop\coding\tuzimine\crenderer.cpp
 	"CRenderer.h"
@@ -3042,15 +3048,16 @@
 1412631242 d:\wxwidgets-3.0.2\include\wx\cocoa\mdi.h
 	"wx/frame.h"
 
-1416368795 source:d:\desktop\coding\tuzimine\ccanvas.cpp
+1416409004 source:d:\desktop\coding\tuzimine\ccanvas.cpp
 	"CCanvas.h"
 	<iostream>
 
-1416366825 d:\desktop\coding\tuzimine\ccanvas.h
+1416384269 d:\desktop\coding\tuzimine\ccanvas.h
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	<GL/glu.h>
 	"CImageLayer.h"
+	"CMineLayer.h"
 
 1412631243 d:\wxwidgets-3.0.2\lib\gcc_lib\mswu\wx\setup.h
 

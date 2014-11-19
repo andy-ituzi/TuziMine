@@ -5,6 +5,7 @@
 #include <wx/glcanvas.h>
 #include <GL/glu.h>
 #include "CImageLayer.h"
+#include "CMineLayer.h"
 
 
 class CGLCanvas: public wxGLCanvas, wxGLContext
@@ -18,6 +19,11 @@ public:
     void Render(void);
 
 private:
+    void OnLeftDown(wxMouseEvent& event);
+    void OnLeftUp(wxMouseEvent& event);
+    void OnRightDown(wxMouseEvent& event);
+    void OnRightUp(wxMouseEvent& event);
+    void OnMove(wxMouseEvent& event);
     void OnTimer(wxTimerEvent& event);
 
 private:
@@ -36,6 +42,7 @@ private:
     CImageLayer *m_img_white_heart;
     CImageLayer *m_img_white_heart_2;
 
+    CMineLayer *m_mine;
 };
 
 #endif // CCANVAS_H

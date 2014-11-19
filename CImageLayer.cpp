@@ -78,7 +78,7 @@ void CImageLayer::GenerateTextures(void)
 
     if (true == img.HasAlpha())
     {
-        //cout << "with alpha" << endl;
+        cout << "with alpha" << endl;
         int w = m_texture.w;
         int h = m_texture.h;
         unsigned char *buffer = (unsigned char*)malloc(h*w*4* sizeof(char));
@@ -97,7 +97,7 @@ void CImageLayer::GenerateTextures(void)
     }
     else
     {
-        //cout << "no alpha" << endl;
+        cout << "no alpha" << endl;
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.GetWidth(), img.GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, img.GetData());
     }
 }

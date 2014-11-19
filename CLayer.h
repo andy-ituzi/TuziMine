@@ -3,6 +3,7 @@
 
 const int FRAME_PER_SEC = 15;
 const int MAX_NUM_KEYFRAME = 10;
+const double PI = 3.1415926;
 
 typedef struct
 {
@@ -99,6 +100,8 @@ protected:
     virtual void UpdateCurrentFrame(void);
     virtual bool GetPreviousKeyFrame(const int type, KEYFRAME_VALUE& value);
     virtual bool GetNextKeyFrame(const int type, KEYFRAME_VALUE& value);
+    virtual void ConvertFromClientToLocal(int cx, int cy, int& x, int& y);
+    virtual void ConvertFromLocalToClient(int lx, int ly, int& x, int& y);
 
 protected:
     int m_width;

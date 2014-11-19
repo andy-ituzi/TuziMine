@@ -7,3 +7,7 @@
 
 1416279300 d:\desktop\coding\tuzimine\cminelogic.h
 
+1416285491 source:d:\desktop\coding\tuzimine\test\t_logic.cpp
+	<iostream>
+	"..\CMineLogic.h"
+

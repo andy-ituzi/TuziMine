@@ -1,4 +1,5 @@
 #include "CLayer.h"
+#include <cmath>
 #include <iostream>
 using namespace std;
 
@@ -246,3 +247,20 @@ bool CLayer::GetNextKeyFrame(const int type, KEYFRAME_VALUE& value)
     //cout << "dubug: false for get next key frame" << endl;
     return false;
 }
+
+void CLayer::ConvertFromClientToLocal(int cx, int cy, int& x, int& y)
+{
+    int xx, yy;
+    double theta;
+    xx = (cx - m_currentFrame.position.x) / m_currentFrame.scale.x * 100;
+    yy = (cy - m_currentFrame.position.y) / m_currentFrame.scale.y * 100;
+    theta = atan(1.0 * yy / xx);
+    x = xx * cos(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / cos(theta) + m_currentFrame.anchorPoint.x;
+    y = yy * sin(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / sin(theta) + m_currentFrame.anchorPoint.y;
+}
+
+void CLayer::ConvertFromLocalToClient(int lx, int ly, int& x, int& y)
+{
+
+}
+

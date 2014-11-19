@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+using namespace std;
 
 CMineLogic::CMineLogic(int cols, int rows, int mines)
     :m_cols(cols),
@@ -35,7 +36,15 @@ void CMineLogic::ReStart(void)
 
 int CMineLogic::StateShowOf(int col, int row)
 {
-    return m_stateShow[ Offset(col, row) ];
+    if (true == m_inBoard[ Offset(col, row)])
+    {
+        return m_stateShow[ Offset(col, row) ];
+    }
+    else
+    {
+        return STATE_EMPTY;
+    }
+
 }
 
 void CMineLogic::OpenGrid(int col, int row)
@@ -237,6 +246,46 @@ void CMineLogic::PrintState(void)
         offset += MAX_COLS_PLUS;
     }
 }
+
+void CMineLogic::PrintBoard(void)
+{
+    int state;
+    for (int i=0; i<m_rows; i++)
+    {
+        if (0 == i)
+        {
+            cout << " ";
+            for (int j=0; j<m_cols; j++)
+            {
+                cout << j%10;
+            }
+            cout << endl;
+        }
+        cout << i;
+        for (int j=0; j<m_cols; j++)
+        {
+            state = StateShowOf(j, i);
+            switch (state)
+            {
+                case STATE_EMPTY: cout << " ";  break;
+                case STATE_1:   cout << "1";    break;
+                case STATE_2:   cout << "2";    break;
+                case STATE_3:   cout << "3";    break;
+                case STATE_4:   cout << "4";    break;
+                case STATE_5:   cout << "5";    break;
+                case STATE_6:   cout << "6";    break;
+                case STATE_7:   cout << "7";    break;
+                case STATE_8:   cout << "8";    break;
+                case STATE_NEW: cout << "N";    break;
+                case STATE_MINE:cout << "9";    break;
+                case STATE_FLAG:cout << "F";    break;
+                default: break;
+            }
+        }
+        cout << endl;
+    }
+}
+
 
 bool CMineLogic::IsWin(void)
 {

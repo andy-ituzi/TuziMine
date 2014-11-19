@@ -44,40 +44,8 @@ int main()
             }
         }
 
-        for (int i=0; i<rows; i++)
-        {
-            if (0 == i)
-            {
-                cout << " ";
-                for (int j=0; j<cols; j++)
-                {
-                    cout << j%10;
-                }
-                cout << endl;
-            }
-            cout << i;
-            for (int j=0; j<cols; j++)
-            {
-                state = logic.StateShowOf(j, i);
-                switch (state)
-                {
-                    case STATE_EMPTY: cout << " ";  break;
-                    case STATE_1:   cout << "1";    break;
-                    case STATE_2:   cout << "2";    break;
-                    case STATE_3:   cout << "3";    break;
-                    case STATE_4:   cout << "4";    break;
-                    case STATE_5:   cout << "5";    break;
-                    case STATE_6:   cout << "6";    break;
-                    case STATE_7:   cout << "7";    break;
-                    case STATE_8:   cout << "8";    break;
-                    case STATE_NEW: cout << "N";    break;
-                    case STATE_MINE:cout << "9";    break;
-                    case STATE_FLAG:cout << "F";    break;
-                    default: break;
-                }
-            }
-            cout << endl;
-        }
+        logic.PrintBoard();
+
         cout << logic.MineLeft() << " mines left." << endl;
         cin >> op;
         if ('u' == op)

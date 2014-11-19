@@ -55,6 +55,7 @@ public:
 	void OpenGridPlus(int col, int row);
 	void FlagGrid(int col, int row);
 	void PrintState(void);
+	void PrintBoard(void);
 
 private:
     int m_cols;
