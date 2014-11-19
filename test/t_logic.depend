@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1416279322 source:d:\desktop\coding\tuzimine\cminelogic.cpp
+	"CMineLogic.h"
+	<cstdlib>
+	<ctime>
+	<iostream>
+
+1416279300 d:\desktop\coding\tuzimine\cminelogic.h
+

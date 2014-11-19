@@ -16,16 +16,44 @@
 					<Add option="-g" />
 					<Add option="-D__WXDEBUG__" />
 					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_dll/mswud" />
+					<Add directory="../TuziMine" />
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib/mswud" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_dll/mswud" />
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib/mswud" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="libwxmsw30ud_core.a" />
 					<Add library="libwxbase30ud.a" />
 					<Add library="libwxpngd.a" />
 					<Add library="libwxzlibd.a" />
+					<Add library="libwxmsw30ud_gl" />
+					<Add library="libopengl32.a" />
 					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_dll" />
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/TuziMine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib/mswu" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib/mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwxmsw30u_core.a" />
+					<Add library="libwxbase30u.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxzlib.a" />
+					<Add directory="D:/wxWidgets-3.0.2/lib/gcc_lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -44,11 +72,68 @@
 		</ResourceCompiler>
 		<Linker>
 			<Add option="-mthreads" />
+			<Add library="libkernel32.a" />
+			<Add library="libuser32.a" />
+			<Add library="libgdi32.a" />
+			<Add library="libwinspool.a" />
+			<Add library="libcomdlg32.a" />
+			<Add library="libadvapi32.a" />
+			<Add library="libshell32.a" />
+			<Add library="libole32.a" />
+			<Add library="liboleaut32.a" />
+			<Add library="libuuid.a" />
+			<Add library="libcomctl32.a" />
+			<Add library="libwsock32.a" />
+			<Add library="libodbc32.a" />
 		</Linker>
-		<Unit filename="TuziMineApp.cpp" />
-		<Unit filename="TuziMineApp.h" />
-		<Unit filename="TuziMineMain.cpp" />
-		<Unit filename="TuziMineMain.h" />
+		<Unit filename="CAnimateLayer.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CAnimateLayer.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CCanvas.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CCanvas.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CImageLayer.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CImageLayer.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CLayer.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CLayer.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CMineLayer.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CMineLayer.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CMineLogic.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="CMineLogic.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="TuziMineApp.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="TuziMineApp.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="TuziMineMain.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="TuziMineMain.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

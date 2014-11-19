@@ -8,10 +8,17 @@
  **************************************************************/
 
 #include "TuziMineMain.h"
+#include "CCanvas.h"
+
 #include <wx/msgdlg.h>
+#include <iostream>
+using namespace std;
 
 //(*InternalHeaders(TuziMineFrame)
+#include <wx/bitmap.h>
+#include <wx/icon.h>
 #include <wx/intl.h>
+#include <wx/image.h>
 #include <wx/string.h>
 //*)
 
@@ -44,7 +51,6 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 //(*IdInit(TuziMineFrame)
 const long TuziMineFrame::idMenuQuit = wxNewId();
 const long TuziMineFrame::idMenuAbout = wxNewId();
-const long TuziMineFrame::ID_STATUSBAR1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(TuziMineFrame,wxFrame)
@@ -61,7 +67,13 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
 
-    Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+    Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX, _T("id"));
+    Move(wxPoint(0,0));
+    {
+    	wxIcon FrameIcon;
+    	FrameIcon.CopyFromBitmap(wxBitmap(wxImage(_T("D:\\Desktop\\Coding\\TuziMine\\images\\pink_heart_2.png"))));
+    	SetIcon(FrameIcon);
+    }
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -72,16 +84,13 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     Menu2->Append(MenuItem2);
     MenuBar1->Append(Menu2, _("Help"));
     SetMenuBar(MenuBar1);
-    StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
-    int __wxStatusBarWidths_1[1] = { -1 };
-    int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
-    StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
-    StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
-    SetStatusBar(StatusBar1);
 
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnAbout);
     //*)
+    Move(300, 10);
+    SetClientSize(CLIENT_SIZE);
+    CGLCanvas *canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
 }
 
 TuziMineFrame::~TuziMineFrame()

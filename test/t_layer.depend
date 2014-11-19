@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1416363630 source:d:\desktop\coding\tuzimine\clayer.cpp
+	"CLayer.h"
+	<iostream>
+
+1416363595 d:\desktop\coding\tuzimine\clayer.h
+
+1416363665 source:d:\desktop\coding\tuzimine\test\t_layer.cpp
+	<iostream>
+	"../CLayer.h"
+
