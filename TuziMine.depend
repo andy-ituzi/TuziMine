@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1385316876 source:d:\desktop\coding\tuzimine\resource.rc
+1416373989 source:d:\desktop\coding\tuzimine\resource.rc
 	"wx/msw/wx.rc"
 
 1412631243 d:\wxwidgets-3.0.2\include\wx\msw\wx.rc
@@ -3051,4 +3051,8 @@
 	<wx/glcanvas.h>
 	<GL/glu.h>
 	"CImageLayer.h"
+
+1412631243 d:\wxwidgets-3.0.2\lib\gcc_lib\mswu\wx\setup.h
+
+1412631243 d:\wxwidgets-3.0.2\lib\gcc_lib\mswud\wx\setup.h
 
