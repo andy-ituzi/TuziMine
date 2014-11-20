@@ -6,7 +6,10 @@
 #include <GL/glu.h>
 #include "CImageLayer.h"
 #include "CMineLayer.h"
+#include "CAnimateLayer.h"
 
+
+const int MS_PER_FRAME = 1000/FRAME_PER_SEC;
 
 class CGLCanvas: public wxGLCanvas, wxGLContext
 {
@@ -43,6 +46,8 @@ private:
     CImageLayer *m_img_white_heart_2;
 
     CMineLayer *m_mine;
+
+    CAnimateLayer *m_seq_pink_heart;
 };
 
 #endif // CCANVAS_H

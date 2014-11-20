@@ -95,6 +95,48 @@ public:
         kfv = m_keyFrame[type][index];
     }
 
+    virtual void SetCurrentFramePosition(double x, double y)
+    {
+        m_currentFrame.position.x = x;
+        m_currentFrame.position.y = y;
+    }
+
+    virtual void SetCurrentFrameOpacity(double op)
+    {
+        m_currentFrame.opacity.opacity = op;
+    }
+
+    virtual void SetCurrentFrameAnchorPoint(double x, double y)
+    {
+        m_currentFrame.anchorPoint.x = x;
+        m_currentFrame.anchorPoint.y = y;
+    }
+
+    virtual void SetCurrentFrameRotation(double rc, double ra)
+    {
+        m_currentFrame.rotation.rotation_count = rc;
+        m_currentFrame.rotation.rotation_angle = ra;
+    }
+
+    virtual void SetCurrentFrameScale(double x, double y)
+    {
+        m_currentFrame.scale.x = x;
+        m_currentFrame.scale.y = y;
+    }
+
+    virtual void SetCurrentFrame(double ax, double ay, double px, double py, double sx, double sy, double rc, double ra, double op)
+    {
+        m_currentFrame.anchorPoint.x = ax;
+        m_currentFrame.anchorPoint.y = ay;
+        m_currentFrame.position.x = px;
+        m_currentFrame.position.y = py;
+        m_currentFrame.scale.x = sx;
+        m_currentFrame.scale.y = sy;
+        m_currentFrame.rotation.rotation_count = rc;
+        m_currentFrame.rotation.rotation_angle = ra;
+        m_currentFrame.opacity.opacity = op;
+    }
+
 protected:
     virtual void UpdateCurrentTime(void);
     virtual void UpdateCurrentFrame(void);

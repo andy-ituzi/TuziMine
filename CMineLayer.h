@@ -30,10 +30,8 @@ public:
     CMineLayer(wxSize clientSize);
     virtual ~CMineLayer();
 
-    virtual bool Initialize(void);
     virtual void Update(void);
     virtual void Render(void);
-
 
     void OnLeftDown(wxMouseEvent& event);
     void OnLeftUp(wxMouseEvent& event);
@@ -51,6 +49,7 @@ private:
 
 	bool m_bLeftPressed;
 	bool m_bRightPressed;
+	bool m_bMouseIn;
 
     CImageLayer *m_number[8];
     CImageLayer *m_flag;

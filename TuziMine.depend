@@ -1941,30 +1941,34 @@
 	<cmath>
 	<iostream>
 
-1416395773 d:\desktop\coding\tuzimine\clayer.h
+1416442216 d:\desktop\coding\tuzimine\clayer.h
 
-1416402549 source:d:\desktop\coding\tuzimine\cimagelayer.cpp
+1416446423 source:d:\desktop\coding\tuzimine\cimagelayer.cpp
 	"CImageLayer.h"
 	<cstdlib>
 	<iostream>
 
-1416366378 d:\desktop\coding\tuzimine\cimagelayer.h
+1416446008 d:\desktop\coding\tuzimine\cimagelayer.h
 	"CLayer.h"
 	<wx/wx.h>
 	<wx/glcanvas.h>
 
-1416291936 source:d:\desktop\coding\tuzimine\canimatelayer.cpp
+1416449266 source:d:\desktop\coding\tuzimine\canimatelayer.cpp
 	"CAnimateLayer.h"
+	<cstdio>
+	<cstring>
+	<iostream>
 
-1416291936 d:\desktop\coding\tuzimine\canimatelayer.h
+1416448100 d:\desktop\coding\tuzimine\canimatelayer.h
 	"CLayer.h"
+	"CImageLayer.h"
 
-1416410585 source:d:\desktop\coding\tuzimine\cminelayer.cpp
+1416447755 source:d:\desktop\coding\tuzimine\cminelayer.cpp
 	"CMineLayer.h"
 	<cmath>
 	<iostream>
 
-1416409289 d:\desktop\coding\tuzimine\cminelayer.h
+1416447759 d:\desktop\coding\tuzimine\cminelayer.h
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	"CImageLayer.h"
@@ -3048,16 +3052,17 @@
 1412631242 d:\wxwidgets-3.0.2\include\wx\cocoa\mdi.h
 	"wx/frame.h"
 
-1416409004 source:d:\desktop\coding\tuzimine\ccanvas.cpp
+1416449585 source:d:\desktop\coding\tuzimine\ccanvas.cpp
 	"CCanvas.h"
 	<iostream>
 
-1416384269 d:\desktop\coding\tuzimine\ccanvas.h
+1416449036 d:\desktop\coding\tuzimine\ccanvas.h
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	<GL/glu.h>
 	"CImageLayer.h"
 	"CMineLayer.h"
+	"CAnimateLayer.h"
 
 1412631243 d:\wxwidgets-3.0.2\lib\gcc_lib\mswu\wx\setup.h
 

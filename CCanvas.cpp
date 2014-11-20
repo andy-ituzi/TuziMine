@@ -27,8 +27,8 @@ CGLCanvas::CGLCanvas(wxWindow *parent, int *attribList, wxSize clientSize)
     m_img_pink_heart_2(0),
     m_img_white_heart(0),
     m_img_white_heart_2(0),
-    m_mine(0)
-
+    m_mine(0),
+    m_seq_pink_heart(0)
 {
     wxGLContext::SetCurrent(*this);
     m_img_background = new CImageLayer("./images/background.png", m_clientSize);
@@ -40,7 +40,8 @@ CGLCanvas::CGLCanvas(wxWindow *parent, int *attribList, wxSize clientSize)
     m_img_white_heart = new CImageLayer("./images/white_heart.png", m_clientSize);
     m_img_white_heart_2 = new CImageLayer("./images/white_heart_2.png", m_clientSize);
     m_mine = new CMineLayer(m_clientSize);
-    m_timer.Start(30);
+    m_seq_pink_heart = new CAnimateLayer("./images/pink_heart/pink_heart", 15, m_clientSize);
+    m_timer.Start(MS_PER_FRAME);
     Initialize();
 }
 
@@ -91,6 +92,11 @@ CGLCanvas::~CGLCanvas()
         delete m_mine;
         m_mine = 0;
     }
+    if (0 != m_seq_pink_heart)
+    {
+        delete m_seq_pink_heart;
+        m_seq_pink_heart = 0;
+    }
 }
 
 
@@ -123,26 +129,29 @@ void CGLCanvas::Initialize(void)
     m_mine->SetFirstFrame((double)m_mine->GetWidth()/2, (double)m_mine->GetHeight()/2,
                         (double)m_clientSize.x/2 - 52, (double)m_clientSize.y/2 + 80, 100, 100, 0, 0, 100);
 
-    m_img_flower->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_flower->AddKeyFrame(TYPE_OPACITY, 150, 0);
+    m_seq_pink_heart->SetFirstFrame((double)m_seq_pink_heart->GetWidth()/2, (double)m_seq_pink_heart->GetHeight()/2,
+                        (double)m_clientSize.x/2+250, (double)m_clientSize.y/2+50, 80, 80, 0, 30, 100);
 
-    m_img_pink_heart->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_pink_heart->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//    m_img_flower->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_flower->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//
+//    m_img_pink_heart->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_pink_heart->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//
+//    m_img_pink_heart_2->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_pink_heart_2->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//
+//    m_img_white_heart->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_white_heart->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//
+//    m_img_white_heart_2->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_white_heart_2->AddKeyFrame(TYPE_OPACITY, 150, 0);
 
-    m_img_pink_heart_2->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_pink_heart_2->AddKeyFrame(TYPE_OPACITY, 150, 0);
-
-    m_img_white_heart->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_white_heart->AddKeyFrame(TYPE_OPACITY, 150, 0);
-
-    m_img_white_heart_2->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_white_heart_2->AddKeyFrame(TYPE_OPACITY, 150, 0);
-
-    m_img_photo->AddKeyFrame(TYPE_OPACITY, 15, 100);
-    m_img_photo->AddKeyFrame(TYPE_OPACITY, 150, 0);
-
-    m_img_frame->AddKeyFrame(TYPE_OPACITY, 100, 100);
-    m_img_frame->AddKeyFrame(TYPE_OPACITY, 200, 0);
+//    m_img_photo->AddKeyFrame(TYPE_OPACITY, 15, 100);
+//    m_img_photo->AddKeyFrame(TYPE_OPACITY, 150, 0);
+//
+//    m_img_frame->AddKeyFrame(TYPE_OPACITY, 100, 100);
+//    m_img_frame->AddKeyFrame(TYPE_OPACITY, 200, 0);
 }
 
 void CGLCanvas::Update(void)
@@ -156,6 +165,7 @@ void CGLCanvas::Update(void)
     m_img_white_heart->Update();
     m_img_white_heart_2->Update();
     m_mine->Update();
+    m_seq_pink_heart->Update();
 }
 
 void CGLCanvas::Render(void)
@@ -173,6 +183,7 @@ void CGLCanvas::Render(void)
     m_img_white_heart->Render();
     m_img_white_heart_2->Render();
     m_mine->Render();
+    m_seq_pink_heart->Render();
 
     SwapBuffers();
 }

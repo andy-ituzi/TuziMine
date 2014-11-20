@@ -12,16 +12,29 @@ CMineLayer::CMineLayer(wxSize clientSize)
     m_clientSize(clientSize),
 	m_bLeftPressed(false),
 	m_bRightPressed(false),
+	m_bMouseIn(false),
 	m_flag(0),
 	m_white(0)
 {
     m_logic.PrintState();
     for (int i=0; i<8; i++)
     {
-        m_number[i] = new CImageLayer(PATH_NUMBER[i], m_clientSize);
+        m_number[i] = new CImageLayer(PATH_NUMBER[i], clientSize);
+        m_number[i]->SetCurrentFrame(0, 0, 0, 0,
+                                     100.0*CELL_SIZE/m_number[i]->GetWidth(),
+                                     100.0*CELL_SIZE/m_number[i]->GetHeight(),
+                                     0, 0, 100);
     }
-    m_flag = new CImageLayer("./images/flag.png", m_clientSize);
-    m_white = new CImageLayer("./images/white.png", m_clientSize);
+    m_flag = new CImageLayer("./images/flag.png", clientSize);
+    m_flag->SetCurrentFrame(0, 0, 0, 0,
+                             100.0*CELL_SIZE/m_flag->GetWidth(),
+                             100.0*CELL_SIZE/m_flag->GetHeight(),
+                             0, 0, 100);
+    m_white = new CImageLayer("./images/white.png", clientSize);
+    m_white->SetCurrentFrame(0, 0, 0, 0,
+                             100.0*CELL_SIZE/m_white->GetWidth(),
+                             100.0*CELL_SIZE/m_white->GetHeight(),
+                             0, 0, 100);
 }
 
 CMineLayer::~CMineLayer()
@@ -46,19 +59,45 @@ CMineLayer::~CMineLayer()
     }
 
 }
-bool CMineLayer::Initialize(void)
-{
-    return true;
-}
 
 void CMineLayer::Update(void)
 {
-
+    if (true == m_logic.IsOver())
+    {
+        m_logic.ReStart();
+    }
+    else if (true == m_logic.IsWin())
+    {
+        m_logic.ReStart();
+    }
 }
 
 void CMineLayer::Render(void)
 {
-    glViewport(0, 0, m_clientSize.x, m_clientSize.y);
+    static double alpha = 0;
+    if (true == m_bMouseIn)
+    {
+        if (alpha < 1.0)
+        {
+            alpha += 0.05;
+        }
+        else
+        {
+            alpha = 1.0;
+        }
+    }
+    else
+    {
+        if (alpha > 0)
+        {
+            alpha -= 0.05;
+        }
+        else
+        {
+            alpha = 0;
+        }
+    }
+    glPushMatrix();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glOrtho(0, m_clientSize.x, 0, m_clientSize.y, 1, -1);
@@ -67,9 +106,11 @@ void CMineLayer::Render(void)
     glTranslatef(m_currentFrame.position.x / m_currentFrame.scale.x * 100 , m_currentFrame.position.y / m_currentFrame.scale.y * 100, 0);
     glRotatef(m_currentFrame.rotation.rotation_count * 360 + m_currentFrame.rotation.rotation_angle, 0, 0, 1);
 
-    float alpha = 0.5;
     int state;
     TEXTURE texture;
+    int ox, oy;
+    ox = m_currentFrame.position.x - m_currentFrame.anchorPoint.x;
+    oy = m_currentFrame.position.y - m_currentFrame.anchorPoint.y;
     for (int i=0; i<ROWS; i++)
     {
         for (int j=0; j<COLS; j++)
@@ -78,23 +119,11 @@ void CMineLayer::Render(void)
             switch (state)
             {
                 case STATE_EMPTY:
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    m_white->GetTexture(texture);
-                    glEnable(GL_TEXTURE_2D);
-                    glBindTexture(GL_TEXTURE_2D, texture.texture);
-                    glBegin(GL_QUADS);
-                        glColor4f(1.f, 1.f, 1.f, alpha+0.3);
-                        glTexCoord2f(0, 1.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 1.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 0.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(0, 0.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glEnd();
-                    glDisable(GL_TEXTURE_2D);
+                    m_white->SetCurrentFrameOpacity(alpha*100);
+                    m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                                     m_currentFrame.rotation.rotation_angle);
+                    m_white->Render();
                     break;
                 case STATE_1:
                 case STATE_2:
@@ -104,75 +133,45 @@ void CMineLayer::Render(void)
                 case STATE_6:
                 case STATE_7:
                 case STATE_8:
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    m_white->GetTexture(texture);
-                    glEnable(GL_TEXTURE_2D);
-                    glBindTexture(GL_TEXTURE_2D, texture.texture);
-                    glBegin(GL_QUADS);
-                        glColor4f(1.f, 1.f, 1.f, alpha+0.3);
-                        glTexCoord2f(0, 1.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 1.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 0.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(0, 0.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glEnd();
-                    glDisable(GL_TEXTURE_2D);
-                    m_number[state-1]->GetTexture(texture);
-                    glEnable(GL_TEXTURE_2D);
-                    glBindTexture(GL_TEXTURE_2D, texture.texture);
-                    glBegin(GL_QUADS);
-                        glColor4f(1.f, 1.f, 1.f, alpha);
-                        glTexCoord2f(0, 1.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 1.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 0.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(0, 0.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glEnd();
-                    glDisable(GL_TEXTURE_2D);
-                    glDisable(GL_BLEND);
+                    m_white->SetCurrentFrameOpacity(alpha*100);
+                    m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                                     m_currentFrame.rotation.rotation_angle);
+                    m_white->Render();
+                    m_number[state-1]->SetCurrentFrameOpacity(alpha*100);
+                    m_number[state-1]->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_number[state-1]->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                                     m_currentFrame.rotation.rotation_angle);
+                    m_number[state-1]->Render();
                     break;
-//                case STATE_NEW: cout << "N";    break;
-//                case STATE_MINE:cout << "9";    break;
                 case STATE_FLAG:
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    m_flag->GetTexture(texture);
-                    glEnable(GL_TEXTURE_2D);
-                    glBindTexture(GL_TEXTURE_2D, texture.texture);
-                    glBegin(GL_QUADS);
-                        glColor4f(1.f, 1.f, 1.f, alpha);
-                        glTexCoord2f(0, 1.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 1.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(1.f, 0.f);
-                            glVertex2f((j+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                        glTexCoord2f(0, 0.f);
-                            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glEnd();
-                    glDisable(GL_TEXTURE_2D);
-                    glDisable(GL_BLEND);
+                    m_flag->SetCurrentFrameOpacity(alpha*100);
+                    m_flag->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_flag->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                                     m_currentFrame.rotation.rotation_angle);
+                    m_flag->Render();
                     break;
                 default:
                 break;
             }
         }
     }
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBegin(GL_QUADS);
+        glColor4f(1.f, 1.f, 1.f, alpha);
         glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
         glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
         glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
         glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
+        glVertex2f(-m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
+        glVertex2f(m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
+        glVertex2f(m_currentFrame.anchorPoint.x, m_currentFrame.anchorPoint.y);
+        glVertex2f(-m_currentFrame.anchorPoint.x, m_currentFrame.anchorPoint.y);
     glEnd();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_BLEND);
 
     if (true == m_bLeftPressed && true == m_bRightPressed)
     {
@@ -184,56 +183,24 @@ void CMineLayer::Render(void)
                 {
                     continue;
                 }
-                m_white->GetTexture(texture);
-                glEnable(GL_TEXTURE_2D);
-                glBindTexture(GL_TEXTURE_2D, texture.texture);
-                glBegin(GL_QUADS);
-                    glColor4f(1.f, 1.f, 1.f, alpha);
-                    glTexCoord2f(0, 1.f);
-                        glVertex2f( (m_col+j)*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-1-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glTexCoord2f(1.f, 1.f);
-                        glVertex2f((m_col+1+j)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-1-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glTexCoord2f(1.f, 0.f);
-                        glVertex2f((m_col+1+j)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                    glTexCoord2f(0, 0.f);
-                        glVertex2f( (m_col+j)*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-i)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-                glEnd();
-                glDisable(GL_TEXTURE_2D);
+                m_white->SetCurrentFrameOpacity(alpha*100);
+                m_white->SetCurrentFramePosition(ox+(m_col+j)*CELL_SIZE, oy+(ROWS-i-1-m_row)*CELL_SIZE);
+                m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                                 m_currentFrame.rotation.rotation_angle);
+                m_white->Render();
             }
         }
     }
     else if (true == m_bLeftPressed)
     {
-        m_white->GetTexture(texture);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, texture.texture);
-        glBegin(GL_QUADS);
-            glColor4f(1.f, 1.f, 1.f, alpha);
-            glTexCoord2f(0, 1.f);
-                glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-            glTexCoord2f(1.f, 1.f);
-                glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-            glTexCoord2f(1.f, 0.f);
-                glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-            glTexCoord2f(0, 0.f);
-                glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
+        m_white->SetCurrentFrameOpacity(alpha*100);
+        m_white->SetCurrentFramePosition(ox+m_col*CELL_SIZE, oy+(ROWS-m_row-1)*CELL_SIZE);
+        m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
+                                         m_currentFrame.rotation.rotation_angle);
+        m_white->Render();
     }
 
-//    glBegin(GL_LINES);
-//    for (int i=0; i<=ROWS; i++)
-//    {
-//        glVertex2f(-m_currentFrame.anchorPoint.x, i*CELL_SIZE-m_currentFrame.anchorPoint.y);
-//        glVertex2f(WIDTH_LAYER-m_currentFrame.anchorPoint.x, i*CELL_SIZE-m_currentFrame.anchorPoint.y);
-//        for (int j=0; j<=COLS; j++)
-//        {
-//            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
-//            glVertex2f(j*CELL_SIZE-m_currentFrame.anchorPoint.x, HEIGHT_LAYER-m_currentFrame.anchorPoint.y);
-//        }
-//    }
-//    glEnd();
-
+    glPopMatrix();
     glFlush();
 }
 
@@ -314,6 +281,11 @@ void CMineLayer::OnMove(wxMouseEvent& event)
         //cout << "(" << col << "," << row << ")" << endl;
         m_col = col;
         m_row = row;
+        m_bMouseIn = true;
+    }
+    else
+    {
+        m_bMouseIn = false;
     }
 }
 bool CMineLayer::GetColAndRow(int mouse_client_x, int mouse_client_y, int& col, int& row)

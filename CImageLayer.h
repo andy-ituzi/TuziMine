@@ -30,8 +30,10 @@ public:
         texture = m_texture;
     }
 
-private:
-    void GenerateTextures(void);
+protected:
+    //bool GenerateTextures(const char* path, TEXTURE& texture);
+
+    bool GenerateTextures(void);
 
 private:
     TEXTURE m_texture;
