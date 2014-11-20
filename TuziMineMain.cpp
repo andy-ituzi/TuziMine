@@ -88,6 +88,7 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnAbout);
     //*)
+    SetTitle(wxString("A tiny gift for you my dear!"));
     Move(300, 10);
     SetClientSize(CLIENT_SIZE);
     CGLCanvas *canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
@@ -106,6 +107,6 @@ void TuziMineFrame::OnQuit(wxCommandEvent& event)
 
 void TuziMineFrame::OnAbout(wxCommandEvent& event)
 {
-    wxString msg = wxbuildinfo(long_f);
-    wxMessageBox(msg, _("Welcome to..."));
+    wxString msg = _("A tiny gift for you my dear!\n\n Andy.ituzi@gmail.com");
+    wxMessageBox(msg, _("About..."));
 }

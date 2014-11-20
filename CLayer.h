@@ -137,6 +137,25 @@ public:
         m_currentFrame.opacity.opacity = op;
     }
 
+    virtual void RepeatBetween(int start_frame, int end_frame)
+    {
+        m_repeat = true;
+        m_frameCount = start_frame;
+        m_start_frame = start_frame;
+        m_end_frame = end_frame;
+    }
+
+    virtual void StartAndEndAt(int start_frame, int end_frame)
+    {
+        m_repeat = false;
+        m_frameCount = start_frame;
+        m_end_frame = end_frame;
+    }
+    virtual void SetShown(bool show)
+    {
+        m_show = show;
+    }
+
 protected:
     virtual void UpdateCurrentTime(void);
     virtual void UpdateCurrentFrame(void);
@@ -152,6 +171,10 @@ protected:
     bool m_bEnableKeyFrame[TYPE_TOTAL];
     KEYFRAME_VALUE m_keyFrame[TYPE_TOTAL][MAX_NUM_KEYFRAME];
     FRAME_VALUE m_currentFrame;
+    bool m_repeat;
+    int m_start_frame;
+    int m_end_frame;
+    bool m_show;
 };
 
 #endif // CLAYER_H

@@ -39,6 +39,12 @@ public:
     void OnRightUp(wxMouseEvent& event);
     void OnMove(wxMouseEvent& event);
 
+    bool HasWon(void)
+    {
+        return m_logic.IsWin();
+    }
+    virtual void SetShown(bool show);
+
 private:
     bool GetColAndRow(int mouse_client_x, int mouse_client_y, int& col, int& row);
 

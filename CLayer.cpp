@@ -24,6 +24,10 @@ CLayer::CLayer()
     m_currentFrame.rotation.rotation_count = 0;
     m_currentFrame.rotation.rotation_angle = 0;
     m_currentFrame.opacity.opacity = 0;
+    m_repeat = false;
+    m_start_frame = 0;
+    m_end_frame = 0;
+    m_show = false;
 }
 
 CLayer::CLayer(int width, int height)
@@ -38,7 +42,7 @@ CLayer::CLayer(int width, int height)
             m_keyFrame[i][j].isEnabled = false;
         }
     }
-    m_frameCount = -1;
+    m_frameCount = 0;
 
     m_currentFrame.anchorPoint.x = 0;
     m_currentFrame.anchorPoint.y = 0;
@@ -49,6 +53,11 @@ CLayer::CLayer(int width, int height)
     m_currentFrame.rotation.rotation_count = 0;
     m_currentFrame.rotation.rotation_angle = 0;
     m_currentFrame.opacity.opacity = 0;
+
+    m_repeat = false;
+    m_start_frame = 0;
+    m_end_frame = 0;
+//    m_active = false;
 }
 
 CLayer::~CLayer()
@@ -167,7 +176,7 @@ void CLayer::UpdateCurrentFrame(void)
          }
     }
     //TYPE_ROTATION
-     if (true == m_bEnableKeyFrame[TYPE_ROTATION])
+    if (true == m_bEnableKeyFrame[TYPE_ROTATION])
     {
         if ( (true == GetPreviousKeyFrame(TYPE_ROTATION, pv))
          && (true == GetNextKeyFrame(TYPE_ROTATION, nv)) )
@@ -184,7 +193,7 @@ void CLayer::UpdateCurrentFrame(void)
          }
     }
     //TYPE_OPACITY
-     if (true == m_bEnableKeyFrame[TYPE_OPACITY])
+    if (true == m_bEnableKeyFrame[TYPE_OPACITY])
     {
         if ( (true == GetPreviousKeyFrame(TYPE_OPACITY, pv))
          && (true == GetNextKeyFrame(TYPE_OPACITY, nv)) )
@@ -200,7 +209,17 @@ void CLayer::UpdateCurrentFrame(void)
 
 void CLayer::UpdateCurrentTime(void)
 {
-    m_frameCount ++;
+    if (m_frameCount >= m_end_frame)
+    {
+        if (true == m_repeat)
+        {
+            m_frameCount = m_start_frame;
+        }
+    }
+    else
+    {
+        m_frameCount++;
+    }
 }
 
 bool CLayer::GetPreviousKeyFrame(const int type, KEYFRAME_VALUE& value)
@@ -254,9 +273,22 @@ void CLayer::ConvertFromClientToLocal(int cx, int cy, int& x, int& y)
     double theta;
     xx = (cx - m_currentFrame.position.x) / m_currentFrame.scale.x * 100;
     yy = (cy - m_currentFrame.position.y) / m_currentFrame.scale.y * 100;
-    theta = atan(1.0 * yy / xx);
-    x = xx * cos(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / cos(theta) + m_currentFrame.anchorPoint.x;
-    y = yy * sin(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / sin(theta) + m_currentFrame.anchorPoint.y;
+    if (0 != xx && 0 != yy)
+    {
+        theta = atan(1.0 * yy / xx);
+        x = xx * cos(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / cos(theta) + m_currentFrame.anchorPoint.x;
+        y = yy * sin(-m_currentFrame.rotation.rotation_angle*PI/180+ theta) / sin(theta) + m_currentFrame.anchorPoint.y;
+    }
+    else if (0 == xx)
+    {
+        x = yy * sin(-m_currentFrame.rotation.rotation_angle*PI/180) + m_currentFrame.anchorPoint.x;
+        y = yy * cos(-m_currentFrame.rotation.rotation_angle*PI/180) + m_currentFrame.anchorPoint.y;
+    }
+    else
+    {
+        x = xx * cos(-m_currentFrame.rotation.rotation_angle*PI/180) + m_currentFrame.anchorPoint.x;
+        y = -xx * sin(-m_currentFrame.rotation.rotation_angle*PI/180) + m_currentFrame.anchorPoint.y;
+    }
 }
 
 void CLayer::ConvertFromLocalToClient(int lx, int ly, int& x, int& y)

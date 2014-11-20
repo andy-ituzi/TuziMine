@@ -31,8 +31,6 @@ public:
     }
 
 protected:
-    //bool GenerateTextures(const char* path, TEXTURE& texture);
-
     bool GenerateTextures(void);
 
 private:

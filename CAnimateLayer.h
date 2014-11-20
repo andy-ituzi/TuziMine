@@ -16,12 +16,21 @@ public:
     virtual void Update(void);
     virtual void Render(void);
 
+    void SetFramesPerImage(int f)
+    {
+        m_framesPerImage = f;
+    }
+
+    virtual void SetShown(bool show);
+
 private:
     const char *m_path;
     wxSize m_clientSize;
     CImageLayer *m_sequence[MAX_SEQUENCE_LENGTH];
     int m_total;
     int m_index;
+    int m_framesPerImage;
+    int m_frameDelay;
 };
 
 #endif // CANIMATELAYER_H

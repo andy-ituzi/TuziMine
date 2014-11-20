@@ -29,6 +29,11 @@ private:
     void OnMove(wxMouseEvent& event);
     void OnTimer(wxTimerEvent& event);
 
+    bool AtTime(int sec, int frame)
+    {
+        return (m_frameCount == sec * FRAME_PER_SEC + frame);
+    }
+
 private:
     static const int TIMER_ID;
     wxDECLARE_EVENT_TABLE();
@@ -44,10 +49,10 @@ private:
     CImageLayer *m_img_pink_heart_2;
     CImageLayer *m_img_white_heart;
     CImageLayer *m_img_white_heart_2;
-
     CMineLayer *m_mine;
-
-    CAnimateLayer *m_seq_pink_heart;
+    //CAnimateLayer *m_seq_pink_heart;
+    CAnimateLayer *m_seq_number;
+    int m_frameCount;
 };
 
 #endif // CCANVAS_H

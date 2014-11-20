@@ -31,6 +31,10 @@ CImageLayer::~CImageLayer()
 
 void CImageLayer::Render(void)
 {
+    if (false == m_show)
+    {
+        return;
+    }
     glPushMatrix();
     //can not use it
     //glViewport(0, 0, m_clientSize.x, m_clientSize.y);
@@ -87,7 +91,6 @@ bool CImageLayer::GenerateTextures(void)
 
     if (true == img.HasAlpha())
     {
-        cout << "with alpha" << endl;
         int w = m_texture.w;
         int h = m_texture.h;
         unsigned char *buffer = (unsigned char*)malloc(h*w*4* sizeof(char));
@@ -103,57 +106,13 @@ bool CImageLayer::GenerateTextures(void)
         }
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
         free(buffer);
+        cout << m_path << "->with alpha:" << w << "x" << h << endl;
     }
     else
     {
-        cout << "no alpha" << endl;
+        cout << m_path << "->no alpha:" << img.GetWidth() << "x" << img.GetHeight() << endl;
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.GetWidth(), img.GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, img.GetData());
     }
     return true;
 }
 
-//bool CImageLayer::GenerateTextures(const char* path, TEXTURE& texture)
-//{
-//    glGenTextures(1, &texture.texture);
-//    glBindTexture(GL_TEXTURE_2D, texture.texture);
-//
-//    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//
-//    wxImage img;
-//    if (false == img.LoadFile(path, wxBITMAP_TYPE_PNG) )
-//    {
-//        return false;
-//    }
-//    texture.w = img.GetWidth();
-//    texture.h = img.GetHeight();
-//
-//    if (true == img.HasAlpha())
-//    {
-//        cout << "with alpha" << endl;
-//        int w = texture.w;
-//        int h = texture.h;
-//        unsigned char *buffer = (unsigned char*)malloc(h*w*4* sizeof(char));
-//        for (int i=0; i<h; i++)
-//        {
-//            for (int j=0; j<w; j++)
-//            {
-//                buffer[((i*w)+j)*4+3] = img.GetAlpha(j, i);
-//                buffer[((i*w)+j)*4+2] = img.GetBlue(j, i);
-//                buffer[((i*w)+j)*4+1] = img.GetGreen(j, i);
-//                buffer[((i*w)+j)*4]   = img.GetRed(j, i);
-//            }
-//        }
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-//        free(buffer);
-//    }
-//    else
-//    {
-//        cout << "no alpha" << endl;
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.GetWidth(), img.GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, img.GetData());
-//    }
-//    return true;
-//}

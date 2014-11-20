@@ -74,6 +74,10 @@ void CMineLayer::Update(void)
 
 void CMineLayer::Render(void)
 {
+    if (false == m_show)
+    {
+        return;
+    }
     static double alpha = 0;
     if (true == m_bMouseIn)
     {
@@ -107,7 +111,6 @@ void CMineLayer::Render(void)
     glRotatef(m_currentFrame.rotation.rotation_count * 360 + m_currentFrame.rotation.rotation_angle, 0, 0, 1);
 
     int state;
-    TEXTURE texture;
     int ox, oy;
     ox = m_currentFrame.position.x - m_currentFrame.anchorPoint.x;
     oy = m_currentFrame.position.y - m_currentFrame.anchorPoint.y;
@@ -303,4 +306,15 @@ bool CMineLayer::GetColAndRow(int mouse_client_x, int mouse_client_y, int& col, 
     {
         return false;
     }
+}
+
+void CMineLayer::SetShown(bool show)
+{
+    CLayer::SetShown(show);
+    for(int i=0; i<8; i++)
+    {
+        m_number[i]->SetShown(show);
+    }
+    m_flag->SetShown(show);
+    m_white->SetShown(show);
 }
