@@ -34,6 +34,11 @@ private:
         return (m_frameCount == sec * FRAME_PER_SEC + frame);
     }
 
+    bool AtTime(int frame)
+    {
+        return (m_frameCount == frame);
+    }
+
 private:
     static const int TIMER_ID;
     wxDECLARE_EVENT_TABLE();
@@ -49,10 +54,13 @@ private:
     CImageLayer *m_img_pink_heart_2;
     CImageLayer *m_img_white_heart;
     CImageLayer *m_img_white_heart_2;
+    CImageLayer *m_img_letter;
     CMineLayer *m_mine;
+
     //CAnimateLayer *m_seq_pink_heart;
     CAnimateLayer *m_seq_number;
     int m_frameCount;
+    int m_frame_mine_over;
 };
 
 #endif // CCANVAS_H

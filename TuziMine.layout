@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="CCanvas.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<ActiveTarget name="Release" />
+	<File name="CCanvas.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="842" topLine="19" />
+			<Cursor1 position="1371" topLine="24" />
 		</Cursor>
 	</File>
 	<File name="TuziMineMain.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="771" topLine="9" />
+			<Cursor1 position="785" topLine="17" />
 		</Cursor>
 	</File>
-	<File name="CImageLayer.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CImageLayer.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1270" topLine="24" />
 		</Cursor>
 	</File>
-	<File name="CCanvas.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CCanvas.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7159" topLine="135" />
+			<Cursor1 position="6862" topLine="104" />
 		</Cursor>
 	</File>
 	<File name="CMineLogic.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -28,22 +28,22 @@
 	</File>
 	<File name="CMineLogic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="729" topLine="6" />
+			<Cursor1 position="662" topLine="6" />
 		</Cursor>
 	</File>
-	<File name="CLayer.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CLayer.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5506" topLine="169" />
+			<Cursor1 position="1874" topLine="64" />
 		</Cursor>
 	</File>
-	<File name="CLayer.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CLayer.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3904" topLine="138" />
+			<Cursor1 position="1882" topLine="95" />
 		</Cursor>
 	</File>
 	<File name="CMineLayer.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1305" topLine="34" />
+			<Cursor1 position="163" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -53,31 +53,27 @@
 	</File>
 	<File name="TuziMineMain.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2672" topLine="60" />
+			<Cursor1 position="2754" topLine="80" />
 		</Cursor>
-		<Folding>
-			<Collapse line="25" />
-			<Collapse line="29" />
-		</Folding>
 	</File>
 	<File name="CImageLayer.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="597" topLine="5" />
 		</Cursor>
 	</File>
-	<File name="CAnimateLayer.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CAnimateLayer.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2045" topLine="44" />
+			<Cursor1 position="2045" topLine="43" />
 		</Cursor>
 	</File>
-	<File name="CAnimateLayer.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CAnimateLayer.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="356" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="CMineLayer.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CMineLayer.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10217" topLine="289" />
+			<Cursor1 position="1962" topLine="68" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

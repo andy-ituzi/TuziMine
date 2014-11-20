@@ -43,7 +43,27 @@ public:
     {
         return m_logic.IsWin();
     }
+
+    bool WasLost(void)
+    {
+        return m_logic.IsOver();
+    }
+
     virtual void SetShown(bool show);
+    virtual void StartAndEndAt(int start_frame, int end_frame)
+    {
+        m_repeat = false;
+        m_frameCount = start_frame;
+        m_end_frame = end_frame;
+    }
+    void SetActive(bool active)
+    {
+        m_active = active;
+    }
+    void SetMineRestart(void)
+    {
+        m_logic.ReStart();
+    }
 
 private:
     bool GetColAndRow(int mouse_client_x, int mouse_client_y, int& col, int& row);
@@ -56,6 +76,7 @@ private:
 	bool m_bLeftPressed;
 	bool m_bRightPressed;
 	bool m_bMouseIn;
+    bool m_active;
 
     CImageLayer *m_number[8];
     CImageLayer *m_flag;

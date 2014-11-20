@@ -8,7 +8,6 @@
  **************************************************************/
 
 #include "TuziMineMain.h"
-#include "CCanvas.h"
 
 #include <wx/msgdlg.h>
 #include <iostream>
@@ -49,7 +48,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(TuziMineFrame)
-const long TuziMineFrame::idMenuQuit = wxNewId();
+const long TuziMineFrame::ID_MENUITEM1 = wxNewId();
 const long TuziMineFrame::idMenuAbout = wxNewId();
 //*)
 
@@ -67,7 +66,7 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
 
-    Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX, _T("id"));
+    Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX, _T("wxID_ANY"));
     Move(wxPoint(0,0));
     {
     	wxIcon FrameIcon;
@@ -76,7 +75,7 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     }
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
-    MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
+    MenuItem1 = new wxMenuItem(Menu1, ID_MENUITEM1, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     Menu1->Append(MenuItem1);
     MenuBar1->Append(Menu1, _("&File"));
     Menu2 = new wxMenu();
@@ -85,13 +84,13 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     MenuBar1->Append(Menu2, _("Help"));
     SetMenuBar(MenuBar1);
 
-    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnQuit);
+    Connect(ID_MENUITEM1,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TuziMineFrame::OnAbout);
     //*)
     SetTitle(wxString("A tiny gift for you my dear!"));
     Move(300, 10);
     SetClientSize(CLIENT_SIZE);
-    CGLCanvas *canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
+    m_canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
 }
 
 TuziMineFrame::~TuziMineFrame()

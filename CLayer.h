@@ -151,6 +151,7 @@ public:
         m_frameCount = start_frame;
         m_end_frame = end_frame;
     }
+
     virtual void SetShown(bool show)
     {
         m_show = show;

@@ -13,6 +13,7 @@ CMineLayer::CMineLayer(wxSize clientSize)
 	m_bLeftPressed(false),
 	m_bRightPressed(false),
 	m_bMouseIn(false),
+	m_active(false),
 	m_flag(0),
 	m_white(0)
 {
@@ -57,7 +58,6 @@ CMineLayer::~CMineLayer()
         delete m_white;
         m_white = 0;
     }
-
 }
 
 void CMineLayer::Update(void)
@@ -68,8 +68,10 @@ void CMineLayer::Update(void)
     }
     else if (true == m_logic.IsWin())
     {
-        m_logic.ReStart();
+        //m_logic.ReStart();
+        m_active = false;
     }
+    CLayer::Update();
 }
 
 void CMineLayer::Render(void)
@@ -78,29 +80,34 @@ void CMineLayer::Render(void)
     {
         return;
     }
-    static double alpha = 0;
-    if (true == m_bMouseIn)
-    {
-        if (alpha < 1.0)
-        {
-            alpha += 0.05;
-        }
-        else
-        {
-            alpha = 1.0;
-        }
-    }
-    else
-    {
-        if (alpha > 0)
-        {
-            alpha -= 0.05;
-        }
-        else
-        {
-            alpha = 0;
-        }
-    }
+//
+//    if (true == m_bMouseIn && true == m_active)
+//    {
+//        if (m_currentFrame.opacity.opacity < 100)
+//        {
+//            m_currentFrame.opacity.opacity += 5;
+//        }
+//        else
+//        {
+//            m_currentFrame.opacity.opacity = 100;
+//        }
+//    }
+//    else if (false == m_bMouseIn && true == m_active)
+//    {
+//        if (m_currentFrame.opacity.opacity > 0)
+//        {
+//            m_currentFrame.opacity.opacity -= 5;
+//        }
+//        else
+//        {
+//            m_currentFrame.opacity.opacity = 0;
+//        }
+//    }
+//    else
+//    {
+//
+//    }
+
     glPushMatrix();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -122,8 +129,10 @@ void CMineLayer::Render(void)
             switch (state)
             {
                 case STATE_EMPTY:
-                    m_white->SetCurrentFrameOpacity(alpha*100);
+                    m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
                     m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
                     m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                                      m_currentFrame.rotation.rotation_angle);
                     m_white->Render();
@@ -136,20 +145,26 @@ void CMineLayer::Render(void)
                 case STATE_6:
                 case STATE_7:
                 case STATE_8:
-                    m_white->SetCurrentFrameOpacity(alpha*100);
+                    m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
                     m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
                     m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                                      m_currentFrame.rotation.rotation_angle);
                     m_white->Render();
-                    m_number[state-1]->SetCurrentFrameOpacity(alpha*100);
+                    m_number[state-1]->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
                     m_number[state-1]->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_number[state-1]->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
                     m_number[state-1]->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                                      m_currentFrame.rotation.rotation_angle);
                     m_number[state-1]->Render();
                     break;
                 case STATE_FLAG:
-                    m_flag->SetCurrentFrameOpacity(alpha*100);
+                    m_flag->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
                     m_flag->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
+                    m_flag->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
                     m_flag->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                                      m_currentFrame.rotation.rotation_angle);
                     m_flag->Render();
@@ -163,7 +178,7 @@ void CMineLayer::Render(void)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBegin(GL_QUADS);
-        glColor4f(1.f, 1.f, 1.f, alpha);
+        glColor4f(1.f, 1.f, 1.f, m_currentFrame.opacity.opacity/100.0);
         glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
         glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
         glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
@@ -186,8 +201,10 @@ void CMineLayer::Render(void)
                 {
                     continue;
                 }
-                m_white->SetCurrentFrameOpacity(alpha*100);
+                m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
                 m_white->SetCurrentFramePosition(ox+(m_col+j)*CELL_SIZE, oy+(ROWS-i-1-m_row)*CELL_SIZE);
+                m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
                 m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                                  m_currentFrame.rotation.rotation_angle);
                 m_white->Render();
@@ -196,8 +213,10 @@ void CMineLayer::Render(void)
     }
     else if (true == m_bLeftPressed)
     {
-        m_white->SetCurrentFrameOpacity(alpha*100);
+        m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
         m_white->SetCurrentFramePosition(ox+m_col*CELL_SIZE, oy+(ROWS-m_row-1)*CELL_SIZE);
+        m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
         m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
                                          m_currentFrame.rotation.rotation_angle);
         m_white->Render();
@@ -209,6 +228,10 @@ void CMineLayer::Render(void)
 
 void CMineLayer::OnLeftDown(wxMouseEvent& event)
 {
+    if (false == m_active)
+    {
+        return;
+    }
     int col, row;
     int mx, my;
     event.GetPosition(&mx, &my);
@@ -221,6 +244,10 @@ void CMineLayer::OnLeftDown(wxMouseEvent& event)
 
 void CMineLayer::OnLeftUp(wxMouseEvent& event)
 {
+    if (false == m_active)
+    {
+        return;
+    }
     int col, row;
     int mx, my;
     event.GetPosition(&mx, &my);
@@ -243,6 +270,10 @@ void CMineLayer::OnLeftUp(wxMouseEvent& event)
 
 void CMineLayer::OnRightDown(wxMouseEvent& event)
 {
+    if (false == m_active)
+    {
+        return;
+    }
     int col, row;
     int mx, my;
     event.GetPosition(&mx, &my);
@@ -260,6 +291,10 @@ void CMineLayer::OnRightDown(wxMouseEvent& event)
 
 void CMineLayer::OnRightUp(wxMouseEvent& event)
 {
+    if (false == m_active)
+    {
+        return;
+    }
     int col, row;
     int mx, my;
     event.GetPosition(&mx, &my);
@@ -276,6 +311,10 @@ void CMineLayer::OnRightUp(wxMouseEvent& event)
 }
 void CMineLayer::OnMove(wxMouseEvent& event)
 {
+    if (false == m_active)
+    {
+        return;
+    }
     int col, row;
     int mx, my;
     event.GetPosition(&mx, &my);
