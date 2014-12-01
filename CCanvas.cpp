@@ -29,7 +29,7 @@ CGLCanvas::CGLCanvas(wxWindow *parent, int *attribList, wxSize clientSize)
     m_img_white_heart_2(0),
     m_img_letter(0),
     m_mine(0),
-    //m_seq_pink_heart(0),
+    m_seq_pink_heart(0),
     m_seq_number(0),
     m_frameCount(0),
     m_frame_mine_over(-1000)
@@ -45,7 +45,7 @@ CGLCanvas::CGLCanvas(wxWindow *parent, int *attribList, wxSize clientSize)
     m_img_white_heart_2 = new CImageLayer("./images/white_heart_2.png", m_clientSize);
     m_img_letter = new CImageLayer("./images/letter.png", m_clientSize);
     m_mine = new CMineLayer(m_clientSize);
-    //m_seq_pink_heart = new CAnimateLayer("./images/pink_heart/pink_heart", 15, m_clientSize);
+    m_seq_pink_heart = new CAnimateLayer("./images/pink_heart/pink_heart", 15, m_clientSize);
     m_seq_number = new CAnimateLayer("./images/numbers/number", 4, m_clientSize);
     m_timer.Start(MS_PER_FRAME);
     Initialize();
@@ -120,6 +120,9 @@ void CGLCanvas::Initialize(void)
     m_mine->AddKeyFrame(TYPE_OPACITY, 15, 0);
     m_mine->SetShown(false);
 
+    m_seq_pink_heart->SetFirstFrame((double)m_seq_pink_heart->GetWidth()/2, (double)m_seq_pink_heart->GetHeight()/2,
+                        500, 500, 100, 100, 0, 0, 100);
+    m_seq_pink_heart->SetShown(true);
 
     //original static condition
     m_seq_number->SetFirstFrame((double)m_seq_number->GetWidth()/2, (double)m_seq_number->GetHeight()/2,
@@ -201,7 +204,7 @@ void CGLCanvas::Update(void)
     m_img_white_heart->Update();
     m_img_white_heart_2->Update();
     m_mine->Update();
-    //m_seq_pink_heart->Update();
+    m_seq_pink_heart->Update();
     m_seq_number->Update();
 }
 
@@ -221,7 +224,7 @@ void CGLCanvas::Render(void)
     m_img_white_heart->Render();
     m_img_white_heart_2->Render();
     m_mine->Render();
-    //m_seq_pink_heart->Render();
+    m_seq_pink_heart->Render();
     m_seq_number->Render();
 
     SwapBuffers();
@@ -311,11 +314,11 @@ CGLCanvas::~CGLCanvas()
         delete m_mine;
         m_mine = 0;
     }
-//    if (0 != m_seq_pink_heart)
-//    {
-//        delete m_seq_pink_heart;
-//        m_seq_pink_heart = 0;
-//    }
+    if (0 != m_seq_pink_heart)
+    {
+        delete m_seq_pink_heart;
+        m_seq_pink_heart = 0;
+    }
     if (0 != m_seq_number)
     {
         delete m_seq_number;

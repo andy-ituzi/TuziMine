@@ -21,6 +21,8 @@ using namespace std;
 #include <wx/string.h>
 //*)
 
+#include "CCanvas.h"
+
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
@@ -68,11 +70,6 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
 
     Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX, _T("wxID_ANY"));
     Move(wxPoint(0,0));
-    {
-    	wxIcon FrameIcon;
-    	FrameIcon.CopyFromBitmap(wxBitmap(wxImage(_T("D:\\Desktop\\Coding\\TuziMine\\images\\pink_heart_2.png"))));
-    	SetIcon(FrameIcon);
-    }
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, ID_MENUITEM1, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -90,7 +87,7 @@ TuziMineFrame::TuziMineFrame(wxWindow* parent,wxWindowID id)
     SetTitle(wxString("A tiny gift for you my dear!"));
     Move(300, 10);
     SetClientSize(CLIENT_SIZE);
-    m_canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
+    CGLCanvas *canvas = new CGLCanvas(this, 0, CLIENT_SIZE);
 }
 
 TuziMineFrame::~TuziMineFrame()

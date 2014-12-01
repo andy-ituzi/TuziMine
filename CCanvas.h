@@ -57,7 +57,7 @@ private:
     CImageLayer *m_img_letter;
     CMineLayer *m_mine;
 
-    //CAnimateLayer *m_seq_pink_heart;
+    CAnimateLayer *m_seq_pink_heart;
     CAnimateLayer *m_seq_number;
     int m_frameCount;
     int m_frame_mine_over;

@@ -10,7 +10,6 @@
 #ifndef TUZIMINEMAIN_H
 #define TUZIMINEMAIN_H
 
-#include "CCanvas.h"
 
 //(*Headers(TuziMineFrame)
 #include <wx/menu.h>
@@ -42,8 +41,6 @@ private:
     //*)
 
     DECLARE_EVENT_TABLE()
-
-    CGLCanvas *m_canvas;
 };
 
 #endif // TUZIMINEMAIN_H
