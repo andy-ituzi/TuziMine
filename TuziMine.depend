@@ -3068,7 +3068,7 @@
 
 1412631243 d:\wxwidgets-3.0.2\lib\gcc_lib\mswud\wx\setup.h
 
-1416464963 source:d:\works\tuzimine\canimatelayer.cpp
+1417417722 source:d:\works\tuzimine\canimatelayer.cpp
 	"CAnimateLayer.h"
 	<cstdio>
 	<cstring>
@@ -3078,7 +3078,7 @@
 	"CLayer.h"
 	"CImageLayer.h"
 
-1417405804 d:\works\tuzimine\clayer.h
+1417418843 d:\works\tuzimine\clayer.h
 
 1416461213 d:\works\tuzimine\cimagelayer.h
 	"CLayer.h"
@@ -6041,7 +6041,7 @@
 	"wx/window.h"
 	<OpenGL/gl.h>
 
-1417412043 source:d:\works\tuzimine\ccanvas.cpp
+1417419023 source:d:\works\tuzimine\ccanvas.cpp
 	"CCanvas.h"
 	<iostream>
 	<cstring>
@@ -6063,17 +6063,17 @@
 
 1416479163 d:\works\tuzimine\cminelogic.h
 
-1417411556 source:d:\works\tuzimine\cimagelayer.cpp
+1417417842 source:d:\works\tuzimine\cimagelayer.cpp
 	"CImageLayer.h"
 	<cstdlib>
 	<iostream>
 
-1417412459 source:d:\works\tuzimine\clayer.cpp
+1417419417 source:d:\works\tuzimine\clayer.cpp
 	"CLayer.h"
 	<cmath>
 	<iostream>
 
-1416479052 source:d:\works\tuzimine\cminelayer.cpp
+1417418193 source:d:\works\tuzimine\cminelayer.cpp
 	"CMineLayer.h"
 	<cmath>
 	<iostream>

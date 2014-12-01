@@ -37,8 +37,8 @@ void CImageLayer::Render(void)
     }
 //    cout << "@CImageLayer.." << endl;
 //    cout << m_currentFrame.anchorPoint.x << " " << m_currentFrame.anchorPoint.y << endl;
-//    cout << m_currentFrame.position.x << " " << m_currentFrame.position.y << endl;
-//    cout << m_currentFrame.scale.x << " " << m_currentFrame.scale.y << endl;
+//    cout << m_currentFrame.px << " " << m_currentFrame.position.y << endl;
+//    cout << m_currentFrame.sx << " " << m_currentFrame.scale.y << endl;
 //    cout << m_currentFrame.rotation.rotation_count << " " << m_currentFrame.rotation.rotation_angle << endl;
 //    cout << m_currentFrame.opacity.opacity << endl;
 
@@ -50,9 +50,9 @@ void CImageLayer::Render(void)
     glOrtho(0, m_clientSize.x, 0, m_clientSize.y, 1, -1);
 
     //Ë³Ðò²»ÄÜ¸Ä
-    glScalef(m_currentFrame.scale.x/100, m_currentFrame.scale.y/100, 1);
-    glTranslatef(m_currentFrame.position.x / m_currentFrame.scale.x * 100 , m_currentFrame.position.y / m_currentFrame.scale.y * 100, 0);
-    glRotatef(m_currentFrame.rotation.rotation_count * 360 + m_currentFrame.rotation.rotation_angle, 0, 0, 1);
+    glScalef(m_currentFrame.sx/100, m_currentFrame.sy/100, 1);
+    glTranslatef(m_currentFrame.px / m_currentFrame.sx * 100 , m_currentFrame.py / m_currentFrame.sy * 100, 0);
+    glRotatef(m_currentFrame.rc * 360 + m_currentFrame.ra, 0, 0, 1);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -60,11 +60,11 @@ void CImageLayer::Render(void)
     glBindTexture(GL_TEXTURE_2D, m_texture.texture);
 
     glBegin(GL_QUADS);
-        glColor4f(1.f, 1.f, 1.f, m_currentFrame.opacity.opacity/100);
-        glTexCoord2f(0, 1.f);     glVertex2f(-m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
-        glTexCoord2f(1.f, 1.f);   glVertex2f(m_width-m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
-        glTexCoord2f(1.f, 0.f);   glVertex2f(m_width-m_currentFrame.anchorPoint.x, m_height-m_currentFrame.anchorPoint.y);
-        glTexCoord2f(0, 0.f);     glVertex2f(-m_currentFrame.anchorPoint.x, m_height-m_currentFrame.anchorPoint.y);
+        glColor4f(1.f, 1.f, 1.f, m_currentFrame.op/100);
+        glTexCoord2f(0, 1.f);     glVertex2f(-m_currentFrame.ax, -m_currentFrame.ay);
+        glTexCoord2f(1.f, 1.f);   glVertex2f(m_width-m_currentFrame.ax, -m_currentFrame.ay);
+        glTexCoord2f(1.f, 0.f);   glVertex2f(m_width-m_currentFrame.ax, m_height-m_currentFrame.ay);
+        glTexCoord2f(0, 0.f);     glVertex2f(-m_currentFrame.ax, m_height-m_currentFrame.ay);
     glEnd();
 
     glDisable(GL_TEXTURE_2D);

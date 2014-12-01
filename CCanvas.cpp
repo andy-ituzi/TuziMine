@@ -92,13 +92,6 @@ void CGLCanvas::Initialize(void)
 void CGLCanvas::Update(void)
 {
 
-    for (int i=0; i<m_totalLayer; i++)
-    {
-        if (0 != m_layer[i])
-        {
-            m_layer[i]->Update();
-        }
-    }
     CImageLayer* img_background;
     CAnimateLayer* seq_number;
     static bool first_loop = true;
@@ -106,24 +99,33 @@ void CGLCanvas::Update(void)
     {
         first_loop = false;
         img_background = (CImageLayer*)GetLayer("background");
-        seq_number = (CAnimateLayer*)GetLayer("seq_number");
-        if (0 == img_background
-            || 0 == seq_number)
-        {
-            return;
-        }
+        //seq_number = (CAnimateLayer*)GetLayer("seq_number");
+//        if (0 == img_background
+//            || 0 == seq_number)
+//        {
+//            return;
+//        }
         img_background->StartAndEndAt(0, 100);
         img_background->SetShown(true);
-        seq_number->RepeatBetween(0, 14);
-        seq_number->SetShown(true);
-        seq_number->SetFramesPerImage(15);
+        //seq_number->RepeatBetween(0, 14);
+        //seq_number->SetShown(true);
+        //seq_number->SetFramesPerImage(15);
+        cout << "first time" << endl;
+    }
+
+    for (int i=0; i<m_totalLayer; i++)
+    {
+        if (0 != m_layer[i])
+        {
+            m_layer[i]->Update();
+        }
     }
 }
 
 void CGLCanvas::Render(void)
 {
     glViewport(0, 0, m_clientSize.x, m_clientSize.y);
-    glClearColor(0.5f, 0.5f, 0.5f, 1.f);
+    glClearColor(0.f, 0.f, 0.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     for (int i=0; i<m_totalLayer; i++)

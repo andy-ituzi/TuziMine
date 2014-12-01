@@ -113,14 +113,14 @@ void CMineLayer::Render(void)
     glLoadIdentity();
     glOrtho(0, m_clientSize.x, 0, m_clientSize.y, 1, -1);
 
-    glScalef(m_currentFrame.scale.x/100, m_currentFrame.scale.y/100, 1);
-    glTranslatef(m_currentFrame.position.x / m_currentFrame.scale.x * 100 , m_currentFrame.position.y / m_currentFrame.scale.y * 100, 0);
-    glRotatef(m_currentFrame.rotation.rotation_count * 360 + m_currentFrame.rotation.rotation_angle, 0, 0, 1);
+    glScalef(m_currentFrame.sx/100, m_currentFrame.sy/100, 1);
+    glTranslatef(m_currentFrame.px / m_currentFrame.sx * 100 , m_currentFrame.py / m_currentFrame.sy * 100, 0);
+    glRotatef(m_currentFrame.rc * 360 + m_currentFrame.ra, 0, 0, 1);
 
     int state;
     int ox, oy;
-    ox = m_currentFrame.position.x - m_currentFrame.anchorPoint.x;
-    oy = m_currentFrame.position.y - m_currentFrame.anchorPoint.y;
+    ox = m_currentFrame.px - m_currentFrame.ax;
+    oy = m_currentFrame.py - m_currentFrame.ay;
     for (int i=0; i<ROWS; i++)
     {
         for (int j=0; j<COLS; j++)
@@ -129,12 +129,12 @@ void CMineLayer::Render(void)
             switch (state)
             {
                 case STATE_EMPTY:
-                    m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+                    m_white->SetCurrentFrameOpacity(m_currentFrame.op);
                     m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
-                    m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-                    m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                                     m_currentFrame.rotation.rotation_angle);
+                    m_white->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+                    m_white->SetCurrentFrameRotation(m_currentFrame.rc,
+                                                     m_currentFrame.ra);
                     m_white->Render();
                     break;
                 case STATE_1:
@@ -145,28 +145,28 @@ void CMineLayer::Render(void)
                 case STATE_6:
                 case STATE_7:
                 case STATE_8:
-                    m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+                    m_white->SetCurrentFrameOpacity(m_currentFrame.op);
                     m_white->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
-                    m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-                    m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                                     m_currentFrame.rotation.rotation_angle);
+                    m_white->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+                    m_white->SetCurrentFrameRotation(m_currentFrame.rc,
+                                                     m_currentFrame.ra);
                     m_white->Render();
-                    m_number[state-1]->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+                    m_number[state-1]->SetCurrentFrameOpacity(m_currentFrame.op);
                     m_number[state-1]->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
-                    m_number[state-1]->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-                    m_number[state-1]->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                                     m_currentFrame.rotation.rotation_angle);
+                    m_number[state-1]->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+                    m_number[state-1]->SetCurrentFrameRotation(m_currentFrame.rc,
+                                                     m_currentFrame.ra);
                     m_number[state-1]->Render();
                     break;
                 case STATE_FLAG:
-                    m_flag->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+                    m_flag->SetCurrentFrameOpacity(m_currentFrame.op);
                     m_flag->SetCurrentFramePosition(ox+j*CELL_SIZE, oy+(ROWS-i-1)*CELL_SIZE);
-                    m_flag->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-                    m_flag->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                                     m_currentFrame.rotation.rotation_angle);
+                    m_flag->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+                    m_flag->SetCurrentFrameRotation(m_currentFrame.rc,
+                                                     m_currentFrame.ra);
                     m_flag->Render();
                     break;
                 default:
@@ -178,15 +178,15 @@ void CMineLayer::Render(void)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBegin(GL_QUADS);
-        glColor4f(1.f, 1.f, 1.f, m_currentFrame.opacity.opacity/100.0);
-        glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-        glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-        glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.anchorPoint.x,  (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-        glVertex2f(m_col*CELL_SIZE-m_currentFrame.anchorPoint.x,      (ROWS-m_row)*CELL_SIZE-m_currentFrame.anchorPoint.y);
-        glVertex2f(-m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
-        glVertex2f(m_currentFrame.anchorPoint.x, -m_currentFrame.anchorPoint.y);
-        glVertex2f(m_currentFrame.anchorPoint.x, m_currentFrame.anchorPoint.y);
-        glVertex2f(-m_currentFrame.anchorPoint.x, m_currentFrame.anchorPoint.y);
+        glColor4f(1.f, 1.f, 1.f, m_currentFrame.op/100.0);
+        glVertex2f(m_col*CELL_SIZE-m_currentFrame.ax,      (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.ay);
+        glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.ax,  (ROWS-m_row-1)*CELL_SIZE-m_currentFrame.ay);
+        glVertex2f((m_col+1)*CELL_SIZE-m_currentFrame.ax,  (ROWS-m_row)*CELL_SIZE-m_currentFrame.ay);
+        glVertex2f(m_col*CELL_SIZE-m_currentFrame.ax,      (ROWS-m_row)*CELL_SIZE-m_currentFrame.ay);
+        glVertex2f(-m_currentFrame.ax, -m_currentFrame.ay);
+        glVertex2f(m_currentFrame.ax, -m_currentFrame.ay);
+        glVertex2f(m_currentFrame.ax, m_currentFrame.ay);
+        glVertex2f(-m_currentFrame.ax, m_currentFrame.ay);
     glEnd();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDisable(GL_BLEND);
@@ -201,24 +201,23 @@ void CMineLayer::Render(void)
                 {
                     continue;
                 }
-                m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+                m_white->SetCurrentFrameOpacity(m_currentFrame.op);
                 m_white->SetCurrentFramePosition(ox+(m_col+j)*CELL_SIZE, oy+(ROWS-i-1-m_row)*CELL_SIZE);
-                m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-                m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                                 m_currentFrame.rotation.rotation_angle);
+                m_white->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+                m_white->SetCurrentFrameRotation(m_currentFrame.rc,
+                                                 m_currentFrame.ra);
                 m_white->Render();
             }
         }
     }
     else if (true == m_bLeftPressed)
     {
-        m_white->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+        m_white->SetCurrentFrameOpacity(m_currentFrame.op);
         m_white->SetCurrentFramePosition(ox+m_col*CELL_SIZE, oy+(ROWS-m_row-1)*CELL_SIZE);
-        m_white->SetCurrentFrameScale(m_currentFrame.scale.x*CELL_SIZE/m_number[0]->GetWidth(),
-                                                  m_currentFrame.scale.y*CELL_SIZE/m_number[0]->GetHeight());
-        m_white->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count,
-                                         m_currentFrame.rotation.rotation_angle);
+        m_white->SetCurrentFrameScale(m_currentFrame.sx*CELL_SIZE/m_number[0]->GetWidth(),
+                                                  m_currentFrame.sy*CELL_SIZE/m_number[0]->GetHeight());
+        m_white->SetCurrentFrameRotation(m_currentFrame.rc, m_currentFrame.ra);
         m_white->Render();
     }
 

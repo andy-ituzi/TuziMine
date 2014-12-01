@@ -68,10 +68,10 @@ void CAnimateLayer::Render(void)
     {
         return;
     }
-    m_sequence[m_index]->SetCurrentFramePosition(m_currentFrame.position.x, m_currentFrame.position.y);
-    m_sequence[m_index]->SetCurrentFrameScale(m_currentFrame.scale.x, m_currentFrame.scale.y);
-    m_sequence[m_index]->SetCurrentFrameRotation(m_currentFrame.rotation.rotation_count, m_currentFrame.rotation.rotation_angle);
-    m_sequence[m_index]->SetCurrentFrameOpacity(m_currentFrame.opacity.opacity);
+    m_sequence[m_index]->SetCurrentFramePosition(m_currentFrame.px, m_currentFrame.py);
+    m_sequence[m_index]->SetCurrentFrameScale(m_currentFrame.sx, m_currentFrame.sy);
+    m_sequence[m_index]->SetCurrentFrameRotation(m_currentFrame.rc, m_currentFrame.ra);
+    m_sequence[m_index]->SetCurrentFrameOpacity(m_currentFrame.op);
     m_sequence[m_index]->Render();
 }
 
