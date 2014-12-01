@@ -8,8 +8,11 @@
 #include "CMineLayer.h"
 #include "CAnimateLayer.h"
 
-
+const int MAX_NUM_LAYER = 50;
 const int MS_PER_FRAME = 1000/FRAME_PER_SEC;
+const int LAYER_TYPE_IMG = 0;
+const int LAYER_TYPE_SEQ = 1;
+const int LAYER_TYPE_MINE = 2;
 
 class CGLCanvas: public wxGLCanvas, wxGLContext
 {
@@ -38,6 +41,8 @@ private:
     {
         return (m_frameCount == frame);
     }
+    void AddLayer(int type, const char* name, const char* path = 0, int seq_total = 0);
+    CLayer* GetLayer(const char* name);
 
 private:
     static const int TIMER_ID;
@@ -46,19 +51,10 @@ private:
     wxTimer m_timer;
     wxSize m_clientSize;
 
-    CImageLayer *m_img_background;
-    CImageLayer *m_img_frame;
-    CImageLayer *m_img_photo;
-    CImageLayer *m_img_flower;
-    CImageLayer *m_img_pink_heart;
-    CImageLayer *m_img_pink_heart_2;
-    CImageLayer *m_img_white_heart;
-    CImageLayer *m_img_white_heart_2;
-    CImageLayer *m_img_letter;
-    CMineLayer *m_mine;
+    CLayer *m_layer[MAX_NUM_LAYER];
+    char m_layerName[MAX_NUM_LAYER][256];
+    int m_totalLayer;
 
-    CAnimateLayer *m_seq_pink_heart;
-    CAnimateLayer *m_seq_number;
     int m_frameCount;
     int m_frame_mine_over;
 };

@@ -3078,7 +3078,7 @@
 	"CLayer.h"
 	"CImageLayer.h"
 
-1416469406 d:\works\tuzimine\clayer.h
+1417405804 d:\works\tuzimine\clayer.h
 
 1416461213 d:\works\tuzimine\cimagelayer.h
 	"CLayer.h"
@@ -6041,11 +6041,13 @@
 	"wx/window.h"
 	<OpenGL/gl.h>
 
-1417358280 source:d:\works\tuzimine\ccanvas.cpp
+1417412043 source:d:\works\tuzimine\ccanvas.cpp
 	"CCanvas.h"
 	<iostream>
+	<cstring>
+	<fstream>
 
-1417394853 d:\works\tuzimine\ccanvas.h
+1417397667 d:\works\tuzimine\ccanvas.h
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	<GL/glu.h>
@@ -6061,12 +6063,12 @@
 
 1416479163 d:\works\tuzimine\cminelogic.h
 
-1416463777 source:d:\works\tuzimine\cimagelayer.cpp
+1417411556 source:d:\works\tuzimine\cimagelayer.cpp
 	"CImageLayer.h"
 	<cstdlib>
 	<iostream>
 
-1416466872 source:d:\works\tuzimine\clayer.cpp
+1417412459 source:d:\works\tuzimine\clayer.cpp
 	"CLayer.h"
 	<cmath>
 	<iostream>

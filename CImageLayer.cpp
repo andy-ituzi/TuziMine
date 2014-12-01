@@ -35,6 +35,13 @@ void CImageLayer::Render(void)
     {
         return;
     }
+//    cout << "@CImageLayer.." << endl;
+//    cout << m_currentFrame.anchorPoint.x << " " << m_currentFrame.anchorPoint.y << endl;
+//    cout << m_currentFrame.position.x << " " << m_currentFrame.position.y << endl;
+//    cout << m_currentFrame.scale.x << " " << m_currentFrame.scale.y << endl;
+//    cout << m_currentFrame.rotation.rotation_count << " " << m_currentFrame.rotation.rotation_angle << endl;
+//    cout << m_currentFrame.opacity.opacity << endl;
+
     glPushMatrix();
     //can not use it
     //glViewport(0, 0, m_clientSize.x, m_clientSize.y);
@@ -76,8 +83,6 @@ bool CImageLayer::GenerateTextures(void)
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 

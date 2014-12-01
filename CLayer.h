@@ -56,6 +56,7 @@ public:
 
     virtual void SetFirstFrame(double ax, double ay, double px, double py, double sx, double sy, double rc, double ra, double op);
     virtual void AddKeyFrame(const int type, long frameCount, double v1, double v2=0);
+    virtual void AddKeyFrame(long frameCount, double ox, double oy, double px, double py, double sx, double sy, double rc, double ra, double op);
 
     virtual void SetWidth(int w)
     {

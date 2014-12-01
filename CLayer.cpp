@@ -117,6 +117,16 @@ void CLayer::AddKeyFrame(const int type, long frameCount, double v1, double v2)
 }
 
 
+void CLayer::AddKeyFrame(long frameCount, double ox, double oy, double px, double py, double sx, double sy, double rc, double ra, double op)
+{
+    AddKeyFrame(0, frameCount, ox, oy);
+    AddKeyFrame(1, frameCount, px, py);
+    AddKeyFrame(2, frameCount, sx, sy);
+    AddKeyFrame(3, frameCount, rc, ra);
+    AddKeyFrame(4, frameCount, op);
+}
+
+
 void CLayer::UpdateCurrentFrame(void)
 {
     KEYFRAME_VALUE pv, nv;
@@ -131,11 +141,23 @@ void CLayer::UpdateCurrentFrame(void)
                 m_currentFrame.anchorPoint.x = pv.value.x + 1.0 * (m_frameCount - pv.frameCount) \
                 *(nv.value.x - pv.value.x)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.anchorPoint.x = pv.value.x;
+            }
             if (pv.value.y != nv.value.y)
             {
                 m_currentFrame.anchorPoint.y = pv.value.y + 1.0 * (m_frameCount - pv.frameCount) \
                 *(nv.value.y - pv.value.y)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.anchorPoint.y = pv.value.y;
+            }
+         }
+         else
+         {
+            m_currentFrame.anchorPoint = m_keyFrame[TYPE_ANCHORPOINT][0].value;
          }
     }
 
@@ -150,11 +172,24 @@ void CLayer::UpdateCurrentFrame(void)
                 m_currentFrame.position.x = pv.value.x + (m_frameCount - pv.frameCount) \
                 *(nv.value.x - pv.value.x)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.position.x = pv.value.x;
+            }
+
             if (pv.value.y != nv.value.y)
             {
                 m_currentFrame.position.y = pv.value.y + (m_frameCount - pv.frameCount) \
                 *(nv.value.y - pv.value.y)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.position.y = pv.value.y;
+            }
+         }
+         else
+         {
+            m_currentFrame.position = m_keyFrame[TYPE_POSITION][0].value;
          }
     }
     //TYPE_SCALE
@@ -168,11 +203,24 @@ void CLayer::UpdateCurrentFrame(void)
                 m_currentFrame.scale.x = pv.value.x + (m_frameCount - pv.frameCount) \
                 *(nv.value.x - pv.value.x)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.scale.x = pv.value.x;
+            }
+
             if (pv.value.y != nv.value.y)
             {
                 m_currentFrame.scale.y = pv.value.y + (m_frameCount - pv.frameCount) \
                 *(nv.value.y - pv.value.y)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.scale.y = pv.value.y;
+            }
+         }
+         else
+         {
+            m_currentFrame.scale = m_keyFrame[TYPE_SCALE][0].value;
          }
     }
     //TYPE_ROTATION
@@ -190,6 +238,16 @@ void CLayer::UpdateCurrentFrame(void)
                 m_currentFrame.rotation.rotation_count = (int)ta/ 360;
                 m_currentFrame.rotation.rotation_angle = ta - 360 * m_currentFrame.rotation.rotation_count;
             }
+            else
+            {
+                m_currentFrame.rotation.rotation_count = pv.value.rotation_count;
+                m_currentFrame.rotation.rotation_angle = pv.value.rotation_angle;
+            }
+
+         }
+         else
+         {
+            m_currentFrame.rotation = m_keyFrame[TYPE_ROTATION][0].value;
          }
     }
     //TYPE_OPACITY
@@ -203,6 +261,14 @@ void CLayer::UpdateCurrentFrame(void)
                 m_currentFrame.opacity.opacity = pv.value.opacity + (m_frameCount - pv.frameCount) \
                 *(nv.value.opacity - pv.value.opacity)/(nv.frameCount - pv.frameCount);
             }
+            else
+            {
+                m_currentFrame.opacity.opacity = pv.value.opacity;
+            }
+         }
+         else
+         {
+            m_currentFrame.opacity = m_keyFrame[TYPE_OPACITY][0].value;
          }
     }
 }
