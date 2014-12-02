@@ -20,11 +20,16 @@ public:
     CGLCanvas(wxWindow *parent, int *attribList, wxSize clientSize);
     virtual ~CGLCanvas();
 
-    void Initialize(void);
+    //void Initialize(void);
     void Update(void);
     void Render(void);
+    void CloseUp(void);
+    void ReStart(void);
+    bool LoadConfig(void);
 
 private:
+
+    int intOf(const char* str);
     void OnLeftDown(wxMouseEvent& event);
     void OnLeftUp(wxMouseEvent& event);
     void OnRightDown(wxMouseEvent& event);

@@ -119,6 +119,7 @@
 				<gui name="wxWidgets" src="TuziMineApp.cpp" main="TuziMineFrame" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxFrame wxs="wxsmith/TuziMineframe.wxs" src="TuziMineMain.cpp" hdr="TuziMineMain.h" fwddecl="0" i18n="1" name="TuziMineFrame" language="CPP" />
+					<wxDialog wxs="wxsmith/EditDialog.wxs" src="EditDialog.cpp" hdr="EditDialog.h" fwddecl="0" i18n="1" name="EditDialog" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

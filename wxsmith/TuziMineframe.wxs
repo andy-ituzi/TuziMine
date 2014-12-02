@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="TuziMineFrame">
-		<icon>D:\Desktop\Coding\TuziMine\images\pink_heart_2.png</icon>
+		<icon>.\images\pink_heart_2.png</icon>
 		<pos>0,0</pos>
 		<id_arg>0</id_arg>
 		<style>wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX</style>
+		<object class="wxPanel" name="ID_PANEL1" variable="Panel_edit" member="yes">
+			<pos>0,0</pos>
+			<size>400,600</size>
+			<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="TextCtrl_file" member="yes">
+				<pos>0,0</pos>
+				<size>400,600</size>
+				<style>wxTE_MULTILINE</style>
+			</object>
+		</object>
+		<object class="wxPanel" name="ID_PANEL2" variable="Panel_canvas" member="yes">
+			<pos>600,0</pos>
+			<size>600,600</size>
+		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">
 				<label>&amp;File</label>
-				<object class="wxMenuItem" name="ID_MENUITEM1" variable="MenuItem1" member="no">
+				<object class="wxMenuItem" name="ID_QUIT" variable="MenuItem1" member="no">
 					<label>Quit</label>
-					<accel>Alt-F4</accel>
-					<help>Quit the application</help>
+					<accel>Alt+F4</accel>
 					<handler function="OnQuit" entry="EVT_MENU" />
 				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">
-				<label>Help</label>
-				<object class="wxMenuItem" name="idMenuAbout" variable="MenuItem2" member="no">
-					<label>About</label>
-					<accel>F1</accel>
-					<help>Show info about this application</help>
-					<handler function="OnAbout" entry="EVT_MENU" />
+				<label>&amp;Edit</label>
+				<object class="wxMenuItem" name="ID_EDIT_LOAD" variable="MenuItem2" member="no">
+					<label>Load Config</label>
+					<accel>Alt+L</accel>
+					<handler function="OnEditLoad" entry="EVT_MENU" />
+				</object>
+				<object class="wxMenuItem" name="ID_EDIT_SAVE" variable="MenuItem3" member="no">
+					<label>Save Config</label>
+					<accel>Alt-S</accel>
+					<handler function="OnEditSave" entry="EVT_MENU" />
+				</object>
+				<object class="wxMenuItem" name="ID_EDIT_RESTART" variable="MenuItem4" member="no">
+					<label>Restart Canvas</label>
+					<accel>Alt-R</accel>
+					<handler function="OnEditRestart" entry="EVT_MENU" />
 				</object>
 			</object>
 		</object>

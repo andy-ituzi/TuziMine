@@ -9,10 +9,10 @@ typedef struct
 {
     double ax, ay;//pixel
     double px, py;//pixel
-    double sx, sy;//0-1
+    double sx, sy;//0-100
     int rc;
     double ra;
-    double op;//0-1
+    double op;//0-100
 }FRAME_VALUE;
 
 typedef struct
@@ -126,7 +126,7 @@ public:
     {
         m_active = true;
         m_repeat = false;
-        m_frameCount = start_frame;
+        m_frameCount = start_frame-1;
         m_start_frame = start_frame;
         m_end_frame = end_frame;
     }

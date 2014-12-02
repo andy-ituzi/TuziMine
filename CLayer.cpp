@@ -98,29 +98,53 @@ void CLayer::UpdateCurrentFrame(void)
             m_currentFrame.ax = pv.value.ax + 1.0 * (m_frameCount - pv.frameCount) \
             *(nv.value.ax - pv.value.ax)/(nv.frameCount - pv.frameCount);
         }
+        else
+        {
+            m_currentFrame.ax = pv.value.ax;
+        }
         if (pv.value.ay != nv.value.ay) {
             m_currentFrame.ay = pv.value.ay + 1.0 * (m_frameCount - pv.frameCount) \
             *(nv.value.ay - pv.value.ay)/(nv.frameCount - pv.frameCount);
+        }
+        else
+        {
+            m_currentFrame.ay = pv.value.ay;
         }
        if (pv.value.px != nv.value.px)
         {
             m_currentFrame.px = pv.value.px + (m_frameCount - pv.frameCount) \
             *(nv.value.px - pv.value.px)/(nv.frameCount - pv.frameCount);
         }
+        else
+        {
+            m_currentFrame.px = pv.value.px;
+        }
         if (pv.value.py != nv.value.py)
         {
             m_currentFrame.py = pv.value.py + (m_frameCount - pv.frameCount) \
             *(nv.value.py - pv.value.py)/(nv.frameCount - pv.frameCount);
+        }
+        else
+        {
+            m_currentFrame.py = pv.value.py;
         }
         if (pv.value.sx != nv.value.sx)
         {
             m_currentFrame.sx = pv.value.sx + (m_frameCount - pv.frameCount) \
             *(nv.value.sx - pv.value.sx)/(nv.frameCount - pv.frameCount);
         }
+        else
+        {
+            m_currentFrame.sx = pv.value.sx;
+        }
         if (pv.value.sy != nv.value.sy)
         {
             m_currentFrame.sy = pv.value.sy + (m_frameCount - pv.frameCount) \
             *(nv.value.sy - pv.value.sy)/(nv.frameCount - pv.frameCount);
+        }
+        else
+        {
+            m_currentFrame.sy = pv.value.sy;
         }
         double pa = pv.value.rc*360 + pv.value.ra;
         double na = nv.value.rc*360 + nv.value.ra;
@@ -131,10 +155,19 @@ void CLayer::UpdateCurrentFrame(void)
             m_currentFrame.rc = (int)ta/ 360;
             m_currentFrame.ra = ta - 360 * m_currentFrame.rc;
         }
+        else
+        {
+            m_currentFrame.rc = pv.value.rc;
+            m_currentFrame.ra = pv.value.ra;
+        }
         if (pv.value.op != nv.value.op)
         {
             m_currentFrame.op = pv.value.op + (m_frameCount - pv.frameCount) \
             *(nv.value.op - pv.value.op)/(nv.frameCount - pv.frameCount);
+        }
+        else
+        {
+            m_currentFrame.op = pv.value.op;
         }
     }
     else

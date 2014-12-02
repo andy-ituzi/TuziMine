@@ -3078,7 +3078,7 @@
 	"CLayer.h"
 	"CImageLayer.h"
 
-1417418843 d:\works\tuzimine\clayer.h
+1417421245 d:\works\tuzimine\clayer.h
 
 1416461213 d:\works\tuzimine\cimagelayer.h
 	"CLayer.h"
@@ -6041,13 +6041,13 @@
 	"wx/window.h"
 	<OpenGL/gl.h>
 
-1417419023 source:d:\works\tuzimine\ccanvas.cpp
+1417474366 source:d:\works\tuzimine\ccanvas.cpp
 	"CCanvas.h"
 	<iostream>
 	<cstring>
 	<fstream>
 
-1417397667 d:\works\tuzimine\ccanvas.h
+1417473601 d:\works\tuzimine\ccanvas.h
 	<wx/wx.h>
 	<wx/glcanvas.h>
 	<GL/glu.h>
@@ -6068,7 +6068,7 @@
 	<cstdlib>
 	<iostream>
 
-1417419417 source:d:\works\tuzimine\clayer.cpp
+1417420558 source:d:\works\tuzimine\clayer.cpp
 	"CLayer.h"
 	<cmath>
 	<iostream>
@@ -6112,12 +6112,16 @@
 1416278960 d:\works\tuzimine\tuzimineapp.h
 	<wx/app.h>
 
-1417394536 d:\works\tuzimine\tuziminemain.h
+1417475404 d:\works\tuzimine\tuziminemain.h
 	<wx/menu.h>
+	<wx/textctrl.h>
+	<wx/panel.h>
 	<wx/frame.h>
+	"CCanvas.h"
 
-1417394680 source:d:\works\tuzimine\tuziminemain.cpp
+1417474468 source:d:\works\tuzimine\tuziminemain.cpp
 	"TuziMineMain.h"
+	<wx/filedlg.h>
 	<wx/msgdlg.h>
 	<iostream>
 	<wx/bitmap.h>
@@ -6128,4 +6132,13 @@
 	"CCanvas.h"
 
 1412631243 c:\wxwidgets-3.0.2\lib\gcc_dll\mswud\wx\setup.h
+
+1417434408 d:\works\tuzimine\editdialog.h
+	"CCanvas.h"
+	<wx/dialog.h>
+
+1417433272 source:d:\works\tuzimine\editdialog.cpp
+	"EditDialog.h"
+	<wx/intl.h>
+	<wx/string.h>
 
